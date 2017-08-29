@@ -1,0 +1,50 @@
+<div class="fw fw-lightgrey top-bottom-padding-100 employees">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2>Ansatte</h2>
+			</div>
+		</div>
+		<div class="row">
+
+{% for piece in data.widget._pieces %}
+<div class="col-md-3 employee-wrapper">
+	<div class="employee">
+		{% set image = apos.images.first(piece.thumbnail) %}
+		<img src="{{ apos.attachments.url(image, { size: 'full' }) }}" class="img-responsive">
+		<div class="text">
+		<h3>{{ piece.title }}</h3>
+			<p>
+					{{ piece.jobTitle }}
+			</p>
+			<p>
+				{% if piece.phone %}
+					<a href="tel:{{ piece.phone }}">
+						{{ piece.phone }}
+					</a><br/>
+				{% endif %}
+				{% if piece.email %}
+				<a href="mailto:{{ piece.email }}">
+					{{ piece.email }}
+				</a><br/>
+				{% endif %}
+			</p>
+		</div>
+	</div>
+		
+	<div class="employee-description">
+		<div class="text">
+				{{
+					apos.singleton(piece, 'body', 'apostrophe-rich-text', {
+						toolbar: [ 'Bold', 'Italic', 'Link', 'Unlink' ]
+					})
+				}}
+		</div>
+	</div>
+</div>
+
+{% endfor %}
+
+		</div>
+	</div>
+</div>
